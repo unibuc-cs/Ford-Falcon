@@ -30,5 +30,17 @@ US9: Ca utilizator, doresc ca aplicația să fie lipsită de erori pentru a func
 
 # Link repository MDS
 https://github.com/ghenpen/mds_proiect.git
+# Diagrame
+diagrama ER
+![340330806-bae951f5-12b6-420b-986f-88bbf966d83f](https://github.com/user-attachments/assets/06213e17-fe07-4999-a10e-8833a0034654)
+diagrama UML
+![340330856-9365db00-6ad5-41f5-b0a7-7f79678aa25f](https://github.com/user-attachments/assets/b744a506-b9a2-4214-98ef-b13e72ae5eb2)
+diagrama de workflow
+![340330887-3ac11540-a59d-4958-9b50-193ad93676ba](https://github.com/user-attachments/assets/d263aef6-c987-466d-841e-d36f573aee60)
+diagrama workflouw-ului de cod
+![340330918-9de5e60f-9320-43c1-8b3e-e021ad544494](https://github.com/user-attachments/assets/e7a037e9-f857-4480-aa06-de19ac4a3ee6)
+
+
+
 
 
