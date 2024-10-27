@@ -9,6 +9,26 @@ Pentru a asigura o experiență simplă și accesibilă, am decis să utilizăm 
 
 Arhitectura simplă a permis o dezvoltare eficientă și rapidă, însă limitările PHP și JavaScript în gestionarea unor funcționalități complexe, cum ar fi notificările în timp real, au fost evidente și vor necesita optimizări în viitor.
 
+# User Stories
+US1: Ca utilizator, doresc să primesc alerte stilizate pentru evenimentele viitoare, astfel încât să fiu notificat la timp.
+
+US2: Ca utilizator, vreau ca agenda să fie aranjată într-un mod mai clar, pentru a găsi rapid informațiile despre evenimente.
+
+US3: Ca dezvoltator, doresc să refactorizez codul pentru a-l face mai clar și mai ușor de întreținut.
+
+US4: Ca utilizator, doresc ca aplicația să fie aranjată optim pentru telefonul mobil, pentru a avea o experiență fluidă.
+
+US5: Ca administrator/utilizator, doresc să am un buton de ștergere pentru calendarele comune, pentru a păstra ordinea în aplicație.
+
+US6: Ca utilizator, doresc să pot șterge evenimentele pe care le-am creat, dacă nu mai sunt relevante.
+
+US7: Ca utilizator, vreau să pot șterge prieteni din lista mea, dacă nu mai doresc să colaborez cu ei.
+
+US8: Ca utilizator, vreau ca aplicația să aibă un aspect modern și uniform pentru o experiență vizuală plăcută.
+
+US9: Ca utilizator, doresc ca aplicația să fie lipsită de erori pentru a funcționa fluent.
+
 # Link repository MDS
 https://github.com/ghenpen/mds_proiect.git
+
 
