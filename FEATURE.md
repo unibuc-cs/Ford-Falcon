@@ -14,7 +14,7 @@ Utilizatorii pot trimite și primi cereri de prietenie, având opțiunea de a î
 În cadrul evenimentelor, utilizatorii pot adăuga comentarii, poze și videoclipuri pentru a detalia planurile.
 
 # Funcționalități noi pentru următoarea etapă
--Modificarea alertelor pentru notificările evenimentelor.
+-Modificarea alertelor pentru notificările evenimentelor.\n
 -Aranjarea agendei și îmbunătățirea experienței vizuale.
 -Optimizarea pentru dispozitive mobile pentru a asigura o afișare corectă pe telefoane și tablete.
 -Adăugarea butonului de ștergere pentru calendare și evenimente (doar administratorii pot șterge calendare comune).
