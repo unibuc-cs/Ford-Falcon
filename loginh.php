@@ -169,7 +169,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
-            <a href="../mds_proiect/signup.php" class="signup-link">Înregistrare</a> <!-- Link către pagina de înregistrare -->
+            <a href="../Ford-Falcon/signup.php" class="signup-link">Înregistrare</a> <!-- Link către pagina de înregistrare -->
         </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

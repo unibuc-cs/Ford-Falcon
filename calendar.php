@@ -167,18 +167,18 @@
                     <form method="post" id="eventForm">
                         <div id="event-section">
                             <input type="hidden" name="form_typev" value="event_form">
-                            <h3>Add Event</h3>
-                            <label for="eventDate">Date:</label>
+                            <h3>Adaugă eveniment </h3>
+                            <label for="eventDate">Dată:</label>
                             <input type="date" id="eventDate" name="eventDate" required><br>
-                            <label for="eventTime">Time:</label>
+                            <label for="eventTime">Oră:</label>
                             <input type="time" id="eventTime" name="eventTime" required><br>
-                            <label for="eventLocation">Location:</label>
-                            <input type="text" id="eventLocation" name="eventLocation" placeholder="Event Location" required><br>
-                            <label for="eventTitle">Title:</label>
-                            <input type="text" id="eventTitle" name="eventTitle" placeholder="Event Title" required><br>
-                            <label for="eventDescription">Description:</label>
-                            <input type="text" id="eventDescription" name="eventDescription" placeholder="Event Description"><br>
-                            <label for="eventColor">Color:</label>
+                            <label for="eventLocation">Locație:</label>
+                            <input type="text" id="eventLocation" name="eventLocation" placeholder="Locație eveniment" required><br>
+                            <label for="eventTitle">Titlu:</label>
+                            <input type="text" id="eventTitle" name="eventTitle" placeholder="Titlu eveniment" required><br>
+                            <label for="eventDescription">Descriere:</label>
+                            <input type="text" id="eventDescription" name="eventDescription" placeholder="Descrierea evenimentului"><br>
+                            <label for="eventColor">Culoare:</label>
                             <input type="color" id="eventColor" name="eventColor" required><br>
                             <button type="submit" id="addEvent">Add</button>
                         </div>
@@ -197,17 +197,17 @@
                     <div class="footer-container-calendar">
                         <label for="month">Jump To: </label>
                         <select id="month" onchange="jump()">
-                            <option value=0>Jan</option>
+                            <option value=0>Ian</option>
                             <option value=1>Feb</option>
                             <option value=2>Mar</option>
                             <option value=3>Apr</option>
-                            <option value=4>May</option>
-                            <option value=5>Jun</option>
-                            <option value=6>Jul</option>
+                            <option value=4>Mai</option>
+                            <option value=5>Iun</option>
+                            <option value=6>Iul</option>
                             <option value=7>Aug</option>
                             <option value=8>Sep</option>
                             <option value=9>Oct</option>
-                            <option value=10>Nov</option>
+                            <option value=10>Noi</option>
                             <option value=11>Dec</option>
                         </select>
                         <select id="year" onchange="jump()"></select>
@@ -253,17 +253,17 @@
     <div id="eventPopup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closePopup()">&times;</span>
-            <h2>Events on <span id="popupDate"></span></h2>
+            <h2>Evenimente pe <span id="popupDate"></span></h2>
             <ul id="eventList"></ul>
             <div id="availabilitySection" style="display: none;">
-                <h3>Join Event</h3>
-                <label for="availabilityStatus">Availability:</label>
+                <h3>Alătură-te evenimentului</h3>
+                <label for="availabilityStatus">Valabilitate:</label>
                 <select id="availabilityStatus" name="availabilityStatus" required>
-                    <option value="available">Available</option>
-                    <option value="not_available">Not Available</option>
-                    <option value="not_sure">Not Sure</option>
+                    <option value="available">Liber</option>
+                    <option value="not_available">Indisponibil</option>
+                    <option value="not_sure">Nesigur</option>
                 </select><br>
-                <button id="joinButton">Submit</button>
+                <button id="joinButton">Trimite</button>
             </div>
         </div>
     </div>
@@ -331,8 +331,8 @@
             <hr style="height:5px;border-width:0;color:#ffd2c6;background-color:#ffd2c6; opacity:0.5">
             <form method="post" id="comform">
                 <input type="hidden" name="form_type" value="com_form">
-                <textarea name="comment" id="comment" cols="60" rows="3" placeholder="Text here"></textarea>
-                <input type="submit" value="Send" id="submit">
+                <textarea name="comment" id="comment" cols="60" rows="3" placeholder="Text aici"></textarea>
+                <input type="submit" value="Trimite" id="submit">
             </form>
         </div>
         <?php
@@ -414,22 +414,21 @@
         let calendar = document.getElementById("calendar");
 
         let months = [
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
+            "Ianuarie",
+            "Februaroe",
+            "Martie",
+            "Aprilie",
+            "Mai",
+            "Iunie",
+            "Iulie",
             "August",
-            "September",
-            "October",
-            "November",
-            "December"
+            "Septembrie",
+            "Octombrie",
+            "Noiembrie",
+            "Decembrie"
         ];
         let days = [
-            "Sun", "Mon", "Tue", "Wed",
-            "Thu", "Fri", "Sat"];
+            "Dum", "Luni", "Mar", "Mie", "Joi", "Vin", "Sâm"];
 
         $dataHead = "<tr>";
         for (dhead in days) {
@@ -587,7 +586,7 @@
 					let deleteButton = document.createElement("button");
 					deleteButton.textContent = "Delete";
 					deleteButton.onclick = function () {
-						if (confirm("Are you sure you want to delete this event?")) {
+						if (confirm("Ești sigur/ă că vrei să ștergi acest eveniment?")) {
 							deleteEvent(event.id); // Trimite solicitarea de ștergere
 						}
 					};
@@ -606,7 +605,7 @@
                     listItem.appendChild(userList);
                 } else {
                     let noUsers = document.createElement("p");
-                    noUsers.innerHTML = "No users available.";
+                    noUsers.innerHTML = "Nici un utilizator valabil.";
                     listItem.appendChild(noUsers);
                 }
                 // Adaugă un buton "Join" pentru a seta disponibilitatea
@@ -621,16 +620,16 @@
     // Creează și adaugă label-ul
     let label = document.createElement("label");
     label.setAttribute("for", `availabilityStatus_${event.id}`);
-    label.textContent = "Availability:";
+    label.textContent = "Valabilitate:";
     availabilityForm.appendChild(label);
 
     // Creează și adaugă select-ul
     let select = document.createElement("select");
     select.setAttribute("id", `availabilityStatus_${event.id}`);
     let options = [
-        { value: "available", text: "Available" },
-        { value: "not_available", text: "Not Available" },
-        { value: "not_sure", text: "Not Sure" }
+        { value: "available", text: "Liber" },
+        { value: "not_available", text: "Indisponibil" },
+        { value: "not_sure", text: "Nesigur" }
     ];
 
     options.forEach(optionData => {
@@ -644,7 +643,7 @@
 
     // Creează și adaugă butonul Submit
     let submitButton = document.createElement("button");
-    submitButton.textContent = "Submit";
+    submitButton.textContent = "Trimite";
     submitButton.onclick = function () {
         let availabilityStatus = select.value; // Obține valoarea selectată
         if (availabilityStatus) {
@@ -696,7 +695,7 @@
                 },
                 error: function(xhr, status, error) {
                     console.error("Error:", xhr.status, error);
-                    alert("Error submitting availability. Please try again.");
+                    alert("Eroare la setarea valbilității. Vă rugăm încercați din nou.");
                 }
             });
         }
@@ -721,7 +720,7 @@
         },
         error: function (xhr, status, error) {
             console.error("Error:", error);
-            alert("Error deleting event. Please try again.");
+            alert("Eroare la ștergerea evenimentului. Vă rugăm încercați din nou.");
         }
     });
 }

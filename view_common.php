@@ -20,7 +20,7 @@ if ($result && $result->num_rows > 0) {
     $user_row = $result->fetch_assoc();
     $user_id = $user_row['id'];
 } else {
-    die("Error retrieving user ID for username: " . htmlspecialchars($username));
+    die("Eroare la obținerea ID-ului pentru utilizatorul: " . htmlspecialchars($username));
 }
 
 // Get friend ID from friend username using prepared statements
@@ -32,7 +32,7 @@ if ($result && $result->num_rows > 0) {
     $friend_row = $result->fetch_assoc();
     $friend_id = $friend_row['id'];
 } else {
-    die("Error retrieving user ID for friend username: " . htmlspecialchars($friend_username));
+    die("Eroare la obținerea ID-ului pentru prietenul: " . htmlspecialchars($friend_username));
 }
 
 // Get common calendars using prepared statements
@@ -46,7 +46,7 @@ $stmt->bind_param("ii", $user_id, $friend_id);
 $stmt->execute();
 $common_calendars = $stmt->get_result();
 if (!$common_calendars) {
-    die("Error retrieving common calendars: " . htmlspecialchars($conn->error));
+    die("Eroare la atribuirea calendarelor: " . htmlspecialchars($conn->error));
 }
 ?>
 
@@ -110,7 +110,7 @@ if (!$common_calendars) {
     include 'header.php';
     ?>
     <div class="container">
-        <h1>Common Calendars with <?php echo htmlspecialchars($friend_username); ?></h1>
+        <h1>Calendare în comun cu <?php echo htmlspecialchars($friend_username); ?></h1>
 
         <?php if ($common_calendars->num_rows > 0): ?>
             <ul class="list-group">
@@ -123,7 +123,7 @@ if (!$common_calendars) {
                 <?php endwhile; ?>
             </ul>
         <?php else: ?>
-            <p id="noCommonCalendars">You have no common calendars with <?php echo htmlspecialchars($friend_username); ?>.</p>
+            <p id="noCommonCalendars">Nu ai calendare în comun cu:  <?php echo htmlspecialchars($friend_username); ?>.</p>
         <?php endif; ?>
     </div>
 

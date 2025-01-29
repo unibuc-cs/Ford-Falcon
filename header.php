@@ -14,26 +14,32 @@
         }
 
         .header {
+            flex: 1 1 auto;
             background-color: #ffd2c6;
             color: #fff;
-            padding: 10px;
-            text-align: center;
+            /* padding: 10px; */
             position: absolute;
             top: 0px;
             width: 100%;
-            height: 100px;
+            height: 10%;
+        }
+
+        .header h1 {
+            width: 40%;
+            text-align: center;
+            text-size-adjust: 20px;
         }
 
         .login-register {
-            text-align: right;
-            position: relative;
-            right: 5vw;
+            text-align: left;
+            position: absolute;
             color: #fff;
+            width: 30%;
         }
 
         .login-register a {
-            color: #fff;
-            text-decoration: none;
+            width: 75px;
+            text-size-adjust: 10px;
         }
 
         .back-button {
@@ -72,8 +78,8 @@
             <?php
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 echo "Bine ai venit, " . htmlspecialchars($user_name) . "!";
-                echo '<a href="homepage.php" class="btn btn-outline-light" style="margin-left: 10px;">Home</a>';
-                echo '<a href="friends.php" class="btn btn-outline-light" style="margin-left: 10px;">Friends</a>';
+                echo '<a href="homepage.php" class="btn btn-outline-light" style="margin-left: 10px;">Acasă</a>';
+                echo '<a href="friends.php" class="btn btn-outline-light" style="margin-left: 10px;">Prieteni</a>';
                 echo '<a href="logout.php" class="btn btn-outline-light" style="margin-left: 10px;">Logout</a>';
             }
             ?>

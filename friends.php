@@ -23,7 +23,7 @@ if ($result && $result->num_rows > 0) {
     $user_row = $result->fetch_assoc();
     $user_id = $user_row['id']; // Preia ID-ul utilizatorului
 } else {
-    die("Error retrieving user ID for username: " . htmlspecialchars($username)); // În caz de eroare, afișează un mesaj și oprește scriptul
+    die("Eroare la preluarea ID-ului de utilizator pentru: " . htmlspecialchars($username)); // În caz de eroare, afișează un mesaj și oprește scriptul
 }
 
 // Obține lista de prieteni utilizând declarații pregătite
@@ -38,7 +38,7 @@ $friends = $stmt->get_result();
 
 // Verifică dacă s-a obținut lista de prieteni cu succes
 if (!$friends) {
-    die("Error retrieving friends: " . htmlspecialchars($conn->error)); // În caz de eroare, afișează un mesaj și oprește scriptul
+    die("Eroare la preluarea prietenilor: " . htmlspecialchars($conn->error)); // În caz de eroare, afișează un mesaj și oprește scriptul
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
@@ -63,13 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
         $stmt->bind_param("iiii", $user_id, $friend_id, $friend_id, $user_id);
 
         if ($stmt->execute()) {
-            echo "<script>alert('Friend removed successfully!');</script>";
+            echo "<script>alert('Prieten șters cu succes!');</script>";
 			header("Location: friends.php");
         } else {
-            echo "<script>alert('Error removing friend.');</script>";
+            echo "<script>alert('Eroare la șteregerea prietenului.');</script>";
         }
     } else {
-        echo "<script>alert('Friend not found.');</script>";
+        echo "<script>alert('Nu a fost găsit acest prieten.');</script>";
     }
 }
 
@@ -79,7 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
 <html>
 
 <head>
-    <title>Friends</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prieteni</title>
     <!-- Adaugă Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -91,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
         }
 
         .container {
-            padding-top: 100px; /* Ajustează această valoare dacă înălțimea antetului este diferită */
+            padding-top: 100px;
         }
 
         .calendar-button {
@@ -140,39 +142,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
         .friend-list {
             list-style-type: none;
             padding: 0;
+            max-width: 600px; /* Adjust the width as needed */
+            margin: 0 auto; /* Center the list horizontally */
         }
 
         .friend-list li {
+            display: flex; /* Use Flexbox for alignment */
+            justify-content: space-between; /* Push the button to the right */
+            align-items: center; /* Vertically align content */
             margin: 10px 0;
+            padding: 10px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            width: 200px;
+            width: 100%; /* Ensure fixed width for the list items */
             border-radius: 5px;
             border: 1px solid pink;
+            background-color: #fff; /* Set a background color */
         }
-        .firend-list li:hover{
+
+        .friend-list li:hover {
             background-color: pink;
         }
 
         .friend-list a {
+            flex-grow: 1; /* Allow the link to take up remaining space */
             text-decoration: none;
             color: #333;
-            
+            font-size: 16px;
+            padding-right: 10px; /* Add some space between the link and the button */
         }
 
         .friend-list a:hover {
             text-decoration: underline;
-            color: pink;
+            color: #ff4d4d;
         }
 
-        #noFriends {
-            text-align: center;
-            font-style: italic;
-            color: #999;
-            margin-top: 20px;
+        .friend-list button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
         }
 
-        h1 {
-            margin-top: 20px;
+        .friend-list button:hover {
+            background-color: #e60000;
         }
     </style>
 </head>
@@ -182,14 +197,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
     <button class="back-button" onclick="window.location.href='homepage.php'" fdprocessedid="mmv3v">Înapoi</button>
 
     <div class="container">
-        <h1>Friends</h1>
+        <h1>Prieteni</h1>
 
         <!-- Buton pentru adăugarea unui prieten -->
         <a href="add_friend.php"><button id="addFriendButton">+</button></a>
         <!-- Buton pentru gestionarea cererilor de prietenie -->
-        <a href="manage_friend_requests.php" ><button id="friendRequestsButton"><img src="add-user.png" style="width:80px;height:80px;"></button></a>
+        <a href="manage_friend_requests.php" ><button id="friendRequestsButton"><img src="add-user.png" style="width:100%;height:100%;"></button></a>
 
-        <h2>Friends List</h2>
+        <h2>Listă de prieteni</h2>
         <?php if ($friends->num_rows > 0): ?>
             <!-- Afiseaza lista de prieteni daca exista cel putin un prieten -->
             <ul class="friend-list">
@@ -210,7 +225,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
             </ul>
         <?php else: ?>
             <!-- Afiseaza un mesaj daca nu exista prieteni -->
-            <p id="noFriends">You have no friends yet.</p>
+            <p id="noFriends">Nu ai nici un prieten încă.</p>
         <?php endif; ?>
     </div>
 

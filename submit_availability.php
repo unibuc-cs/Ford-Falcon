@@ -28,15 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["userId"]) && isset($_
     }
 
     if ($stmt->execute()) {
-        echo "Availability submitted successfully!";
+        echo "Valabilitate setată cu succes!";
     } else {
         // Mesaj de eroare detaliat
-        echo "Error executing query: " . $stmt->error;
+        echo "Eroare la executarea cererii: " . $stmt->error;
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    echo "Invalid request method or missing parameters.";
+    echo "Cerere invalidă sau lipsesc parametri.";
 }
 ?>
