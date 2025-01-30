@@ -347,7 +347,7 @@ mysqli_close($conn);
     .calendar-button {
         background-color: #ffd2c6;
         color: white;
-        width: 800px;
+        width: 70vw;
         height: 80px;
         text-align: center;
         justify-content: center;

@@ -14,32 +14,41 @@
         }
 
         .header {
-            flex: 1 1 auto;
             background-color: #ffd2c6;
             color: #fff;
             /* padding: 10px; */
             position: absolute;
             top: 0px;
             width: 100%;
-            height: 10%;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
         }
 
         .header h1 {
-            width: 40%;
+            width: auto;
+            height: auto;
+            min-height: 50px;
             text-align: center;
-            text-size-adjust: 20px;
+            margin-left: 5%;
+            margin-right: 5%;
+            text-size-adjust: 10px;
+            font-size: 1.5em;
         }
 
         .login-register {
-            text-align: left;
-            position: absolute;
+            position: relative;
+            text-align: center;
             color: #fff;
-            width: 30%;
+            width: auto;
+            top: 10px;
+            margin-right: 25px;
         }
-
+        
         .login-register a {
             width: 75px;
             text-size-adjust: 10px;
+            font-size: : 1em;
         }
 
         .back-button {
@@ -74,7 +83,7 @@
             <button class="back-button" onclick="window.location.href='homepage.php'">Înapoi</button>
         <?php endif; ?>
         <h1 style="display: inline-block; position: relative; left: 0px; top:10px;">GroupCalendar</h1>
-        <div class="login-register" style="display: inline-block;left:100px; position:relative;">
+        <div class="login-register" style="display: inline-block;">
             <?php
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 echo "Bine ai venit, " . htmlspecialchars($user_name) . "!";
