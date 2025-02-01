@@ -9,7 +9,7 @@ class PerformanceDatabaseTest extends TestCase
     protected function setUp(): void
     {
         // Conectare la baza de date
-        $this->conn = new mysqli("localhost", "root", "", "calendar_mds");
+        $this->conn = new mysqli("localhost", "root", "", "test");
 
         if ($this->conn->connect_error) {
             die("Eroare la conectare: " . $this->conn->connect_error);

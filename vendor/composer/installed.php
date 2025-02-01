@@ -3,7 +3,7 @@
         'name' => 'numele/proiectului-tau',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '5d59a2afede6c840e5f94da13ce4fe976d39404c',
+        'reference' => '9994c3f3990b03a31186d821c7ad962698cbe87d',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'numele/proiectului-tau' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '5d59a2afede6c840e5f94da13ce4fe976d39404c',
+            'reference' => '9994c3f3990b03a31186d821c7ad962698cbe87d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

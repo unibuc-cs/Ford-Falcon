@@ -44,7 +44,6 @@ class LoginTest extends TestCase {
 
     protected function tearDown(): void {
         // Clean up the database and close the connection
-        $this->conn->query("DELETE FROM user");
         $this->conn->close();
     }
 }
