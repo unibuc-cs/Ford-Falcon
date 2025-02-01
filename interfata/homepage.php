@@ -301,25 +301,13 @@ mysqli_close($conn);
     background-color: #e60000; /* Roșu închis */
 }
 
-
-#addCalendarButton {
-    width: 100%;
-    padding: 10px;
-    background-color: pink;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
 #addCalendarButton:disabled {
     cursor: default;
     opacity: 0.7;
 }
     #tableContainer {
         position: absolute;
-        top: 35vh;
+        top: calc(38vh - 5.5vw);
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -331,10 +319,10 @@ mysqli_close($conn);
 
     .evenimente{
         position: absolute;
-        top: 40vh;
+        top: 35vh;
         right: 3vw;
         display: grid;
-        width: 25vw;
+        width: 20vw;
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -342,7 +330,8 @@ mysqli_close($conn);
     }
 
     #tableContainer a {
-        /* width: 100%; */
+        margin-left: 1vw;
+        margin-right: 0.5vw;
         padding: 5px;
     }
 
@@ -351,11 +340,11 @@ mysqli_close($conn);
     }
 
     #codeFormContainer {
-        position: absolute;
-        top: 15vh;
+        position: fixed;
+        top: calc(25vh - 9vw);
         right: 3vw;
         background-color: #ffd2c6;
-        padding: 20px;
+        padding: 2vw;
         border-radius: 10px;
     }
 
@@ -363,7 +352,7 @@ mysqli_close($conn);
         background-color: #ffd2c6;
         color: white;
         width: 70vw;
-        height: 80px;
+        height: 60px;
         text-align: center;
         justify-content: center;
         margin-top: 2vh;
@@ -384,17 +373,17 @@ mysqli_close($conn);
 
     #createButton {
         font-size: 5vw;
-        top: 15vh;
-        position: absolute;
+        top: calc(25vh - 9vw);
+        position: fixed;
         left: 3vw;
         background-color: #ffd2c6;
         color: white;
-        width: 6vw;
+        height: calc(10vh + 3vw);
+        width: calc(3vw + 5vh);
     }
 
     #codeFormContainer input {
-        width: calc(100% - 20px);
-        padding: 8px;
+        padding: 0.1vw;
         margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -402,7 +391,7 @@ mysqli_close($conn);
 
     #codeFormContainer button {
         width: 100%;
-        padding: 10px;
+        padding: 0.5vw;
         background-color: pink;
         color: #fff;
         border: none;

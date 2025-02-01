@@ -17,7 +17,6 @@ $calendar_id = isset($_GET['calendar_id']) ? intval($_GET['calendar_id']) : 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Legend</title>
-    <link rel="stylesheet" href="http://localhost/ford-falcon/public/style.css"> <!-- Încarcă fișierul CSS separat pentru stilizare -->
     <style>
         .event-color {
             display: inline-block;

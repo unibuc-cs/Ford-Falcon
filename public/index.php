@@ -78,7 +78,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Redirect to login page after animation -->
     <script>
-        setTimeout(() => window.location.href = "../interfata/loginh.php", 6500);
+        setTimeout(() => window.location.href = "../interfata/loginh.php", 5000);
     </script>
 </body>
 </html>

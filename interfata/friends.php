@@ -128,7 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
             left: 3vw;
             background-color: #ffd2c6;
             color: white;
-            width: 6vw;
+            height: calc(10vh + 3vw);
+            width: calc(3.5vw + 6vh);
         }
 
         #addFriendButton {
