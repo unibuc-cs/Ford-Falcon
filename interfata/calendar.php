@@ -415,7 +415,7 @@
 
         let months = [
             "Ianuarie",
-            "Februaroe",
+            "Februarie",
             "Martie",
             "Aprilie",
             "Mai",
