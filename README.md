@@ -84,7 +84,7 @@ Diagrama Component
 
 
 Diagrama C4
-![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/C4.bmp)
+![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/DiagramaC4.bmp)
 
 
 3. Cerințe Non-Funcționale și Soluții Arhitecturale
