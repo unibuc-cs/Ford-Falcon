@@ -1,0 +1,8 @@
+@startuml
+
+rectangle Utilizator as user
+
+Node "Aplicatie Web" as aplication
+
+user --> aplication : "Organizează calendare si coordonează\n activități împreună cu alți utilizatori"
+@enduml

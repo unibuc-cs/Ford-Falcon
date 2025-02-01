@@ -6,7 +6,7 @@ rectangle "     Aplicație web  \nPermite clienților accesul\n la evenimentele 
 }
 rectangle "     Baza de date   \nStochează toate datele utilizatorului" as database
 
-user --> web : "Creează, modifică și utilizează calendare \n Gestionează prieteni și coordonatori \n folosind"
+user --> web : "Creează, modifică și utilizează calendare \n Gestionează prieteni și coordonatori"
 web --> database : "Preia informațiile stocate \nale utilizatorului și modifică\n agenda acestuia"
 
 @enduml

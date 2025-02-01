@@ -1,12 +1,13 @@
 <?php
 include '../app/db.php';
+
 session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["userId"]) && isset($_POST["eventId"]) && isset($_POST["availabilityStatus"])) {
+    $userId = $_POST['userId'];
+    $eventId = $_POST['eventId'];
+    $availabilityStatus = $_POST['availabilityStatus'];
 
-$userId = filter_input(INPUT_POST, 'userId', FILTER_VALIDATE_INT);
-$eventId = filter_input(INPUT_POST, 'eventId', FILTER_VALIDATE_INT);
-$availabilityStatus = filter_input(INPUT_POST, 'availabilityStatus', FILTER_SANITIZE_STRING);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userId && $eventId && $availabilityStatus) {
+    error_log("userId: $userId, eventId: $eventId, availabilityStatus: $availabilityStatus");
 
     $stmt = $conn->prepare("SELECT * FROM userinevent WHERE userId = ? AND eventId = ?");
     $stmt->bind_param("ii", $userId, $eventId);
@@ -14,22 +15,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $userId && $eventId && $availabilit
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        $stmt = $conn->prepare("UPDATE userinevent SET availability = ? WHERE userId = ? AND eventId = ?");
+        $stmt = $conn->prepare("UPDATE userinevent SET displonibility = ? WHERE userId = ? AND eventId = ?");
         $stmt->bind_param("sii", $availabilityStatus, $userId, $eventId);
     } else {
-        $stmt = $conn->prepare("INSERT INTO userinevent (userId, eventId, availability) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO userinevent (userId, eventId, displonibility) VALUES (?, ?, ?)");
         $stmt->bind_param("iis", $userId, $eventId, $availabilityStatus);
     }
 
     if ($stmt->execute()) {
-        echo "Disponibilitatea a fost setată cu succes!";
+        echo "Availability submitted successfully!";
     } else {
-        echo "Eroare la actualizarea disponibilității. Încercați din nou.";
+        echo "Error executing query: " . $stmt->error;
     }
 
     $stmt->close();
     $conn->close();
 } else {
-    echo "Cerere invalidă sau parametri lipsă.";
+    echo "Invalid request method or missing parameters.";
 }
 ?>

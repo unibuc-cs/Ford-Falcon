@@ -40,12 +40,13 @@ diagrama de workflow
 diagrama workflouw-ului de cod
 ![340330918-9de5e60f-9320-43c1-8b3e-e021ad544494](https://github.com/user-attachments/assets/e7a037e9-f857-4480-aa06-de19ac4a3ee6)
 
-Diagrama C1
-![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/C1.bmp)
-Diagrama C2
-![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/C2.bmp)
-Diagrama C3
-![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/C3.bmp)
-
+Diagrama Context
+![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/Context.bmp)
+Diagrama Container
+![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/Container.bmp)
+Diagrama Component
+![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/Component.bmp)
+Diagrama C4
+![alt text](https://github.com/unibuc-cs/Ford-Falcon/blob/master/Diagrams/C4.bmp)
 
 

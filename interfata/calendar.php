@@ -672,7 +672,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: 'http://localhost/proiect_is/php_ex/submit_availability.php',
+                url: 'http://localhost/ford-falcon/php_ex/submit_availability.php',
                 data: {
                     userId: userId,
                     eventId: eventId,
@@ -698,7 +698,7 @@
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost/proiect_is/php_ex/delete_event.php', 
+        url: 'http://localhost/ford-falcon/php_ex/delete_event.php'
         data: {
             eventId: eventId,
             userId: userId
