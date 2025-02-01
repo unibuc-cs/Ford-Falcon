@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendar</title>
-    <link rel="stylesheet" href="http://localhost/proiect_is/public/style.css">
+    <link rel="stylesheet" href="http://localhost/ford-falcon/public/style.css">
     <style>
         .cod{
             flex: 0 0 30%;
