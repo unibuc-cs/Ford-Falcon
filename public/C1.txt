@@ -1,0 +1,12 @@
+@startuml
+
+actor Utilizator as user
+
+rectangle "     Aplicație web  \nPermite clienților accesul\n la evenimentele planificate\n și modificarea acestora" as web {
+}
+rectangle "     Baza de date   \nStochează toate datele utilizatorului" as database
+
+user --> web : "Creează, modifică și utilizează calendare \n Gestionează prieteni și coordonatori \n folosind"
+web --> database : "Preia informațiile stocate \nale utilizatorului și modifică\n agenda acestuia"
+
+@enduml

@@ -1,0 +1,65 @@
+@startuml
+
+actor Utilizator as user
+
+package "Web Calendar App" {
+    [Web Browser] as webBrowser
+    [Apache + PHP] as apachePHP
+    [MySQL Database] as mysqlDB
+    [CSS Files] as cssFiles
+
+    package "Web Pages" {
+        [Landing Page] as landingPage
+        [Login Page] as loginPage
+        [Home Page] as homePage
+        [Friends List] as friendsList
+        [Calendar Page] as calendarPage
+        [Signup Page] as signupPage
+    }
+
+    package "PHP Components" {
+        [Authentication Handler] as authHandler
+        [Event Manager] as eventManager
+        [Friend Manager] as friendManager
+        [User Manager] as userManager
+    }
+
+    package "Database" as database{
+        [Calendare] as calendarTable
+        [Cereri de prietenie] as friendRequestsTable
+        [Comentarii] as commentTable
+        [Evenimente] as eventTable
+        [Prietenii] as friendshipTable
+        [Utilizatori] as userTable
+    }
+}
+
+user --> webBrowser : "Folosește"
+webBrowser --> apachePHP : "Cere și folosește elemente HTML"
+webBrowser --> cssFiles : "Încarcă CSS"
+
+cssFiles --> landingPage
+
+landingPage --> authHandler : "Verificarea autentificării"
+loginPage --> signupPage : "Trecere la signup"
+loginPage <--> authHandler: "Autentificare"
+authHandler --> homePage : "Intrare în meniu\n(auto-login)"
+
+signupPage --> authHandler : "Înregistrarea unui cont nou"
+authHandler --> userManager : "Înregistrarea datelor contului"
+userManager --> mysqlDB : "Inserarea utilizatorului în bază"
+
+homePage --> friendsList : "Modifică lista de prieteni"
+homePage --> calendarPage : "Accesarea unui calendar"
+homePage --> landingPage : "Logout"
+
+calendarPage --> eventManager : "Creearea unui eveniment\nModificareaunui eveniment\n Ștergerea unui eveniment\n Creearea unui comentariu\n"
+eventManager --> mysqlDB : "Interoghează / inserează evenimente în tabel"
+
+friendsList --> friendManager : "Gestionează prieteniile"
+friendManager --> mysqlDB : "Interoghează / inserează prietenii în tabel"
+
+apachePHP --> landingPage: "Încărcarea aplicației web"
+authHandler --> mysqlDB : "Interoghează \ndatele de autentificare\n criptate pentru login"
+
+@enduml

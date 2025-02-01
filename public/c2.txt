@@ -1,0 +1,38 @@
+@startuml
+
+actor User as Utilizator
+node "Web Calendar App" {
+    rectangle "Web Browser" as webBrowser
+    rectangle "Apache + PHP" as apachePHP
+    database "MySQL Database" as mysqlDB
+    file "CSS Files" as cssFiles
+}
+
+Utilizator --> webBrowser : "Uses"
+webBrowser --> apachePHP : "Trimite cereri și primește elemente HTML"
+apachePHP --> mysqlDB : "Query-uri pentru\n autentificare\n și calendare"
+apachePHP --> cssFiles : "Încarcă stylesheet-uri"
+
+rectangle "Pagini HTML" {
+    rectangle "Index-Logo" as landingPage
+    rectangle "Pagina de login" as loginPage
+    rectangle "Homepage" as homePage
+    rectangle "Lista de prieteni" as friendsList
+    rectangle "Calendar" as calendarPage
+    rectangle "Signup" as signupPage
+}
+
+Utilizator --> landingPage : "Începe aici"
+landingPage --> loginPage : "Autentificare"
+landingPage --> homePage : "Auto-autentificare"
+loginPage --> homePage : "Access dupa autentificare"
+loginPage --> signupPage : "Creeare cont"
+signupPage --> loginPage : "Autentificare\nin noul cont"
+signupPage --> apachePHP : "Înregistrarea\n noului cont"
+homePage --> friendsList : "Gestionarea prietenilor"
+homePage --> calendarPage : "Accesarea unui calendar"
+homePage --> landingPage : "Logout"
+calendarPage --> apachePHP : "Stocarea și \naccesarea evenimentelor"
+friendsList --> apachePHP : "Modificarea listei \n de prieteni"
+
+@enduml
