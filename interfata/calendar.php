@@ -579,7 +579,7 @@
             eventsOnDate.forEach(event => {
                 let listItem = document.createElement("li");
                 listItem.innerHTML = `${event.time} - ${event.description}`;
-				
+
 					let deleteButton = document.createElement("button");
 					deleteButton.textContent = "Delete";
 					deleteButton.onclick = function () {
@@ -588,7 +588,7 @@
 						}
 					};
 					listItem.appendChild(deleteButton);
-                
+
                 let usersForEvent = usersphp.filter(user => user.id === event.id);
                 console.log(usersForEvent);
                 if (usersForEvent.length > 0) {
@@ -604,6 +604,7 @@
                     noUsers.innerHTML = "Nici un utilizator valabil.";
                     listItem.appendChild(noUsers);
                 }
+                
                 let joinButton = document.createElement("button");
                 joinButton.innerHTML = "Join";
                 joinButton.onclick = function () {
@@ -690,15 +691,15 @@
             });
         }
 		function deleteEvent(eventId) {
-    let userId = <?php echo $user_id; ?>; 
+    let userId = <?php echo $user_id; ?>;
 
 	if (event) {
-        event.preventDefault(); 
+        event.preventDefault();
     }
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost/ford-falcon/php_ex/delete_event.php'
+        url: 'http://localhost/ford-falcon/php_ex/delete_event.php',
         data: {
             eventId: eventId,
             userId: userId
