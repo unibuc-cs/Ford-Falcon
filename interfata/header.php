@@ -22,17 +22,18 @@
             width: 100%;
             height: auto;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
         }
 
         .header h1 {
             width: auto;
             height: auto;
             min-height: 50px;
-            text-align: left;
-            margin-left: 7%;
-            margin-right: 7%;
-            font-size: 2em;
+            text-align: center;
+            margin-left: 5%;
+            margin-right: 5%;
+            text-size-adjust: 10px;
+            font-size: 1.5em;
         }
 
         .login-register {
@@ -41,7 +42,7 @@
             color: #fff;
             width: auto;
             top: 10px;
-            margin-right: 10px;
+            margin-right: 25px;
         }
         
         .login-register a {
@@ -72,14 +73,14 @@
 <body>
     <?php
 
-    include '../app/db.php';
+    include __DIR__ . '/../app/db.php';
 
     $user_id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
     $user_name = isset($_SESSION['username']) ? $_SESSION['username'] : null;
     ?>
     <div class="header">
         <?php if (isset($_SESSION['show_back_button']) && $_SESSION['show_back_button'] === true): ?>
-            <button class="back-button" onclick="window.location.href='interfata/homepage.php'">Înapoi</button>
+            <button class="back-button" onclick="window.location.href='homepage.php'">Înapoi</button>
         <?php endif; ?>
         <h1 style="display: inline-block; position: relative; left: 0px; top:10px;">GroupCalendar</h1>
         <div class="login-register" style="display: inline-block;">

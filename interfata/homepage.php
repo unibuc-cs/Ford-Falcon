@@ -1,12 +1,20 @@
 
 <?php
 session_start();
-include '../app/db.php';
+include __DIR__ . '/../app/db.php';
 
 $success_message = false;
 $error_message = "";
 $successs_message = false;
 $errorr_message = "";
+
+
+if(getenv('IS_TESTING')) 
+{
+    $_SESSION['loggedin'] = true;
+    $_SESSION['username'] = 'testuser';
+    $_SESSION['id'] = 1;
+}
 
 // Verifică dacă utilizatorul este autentificat
 if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
@@ -19,7 +27,7 @@ $user_name = $_SESSION['username'];
 $_SESSION['show_back_button'] = false;
 
 // Procesare formular pentru adăugarea unui calendar folosind un cod
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['calendar_code'])) {
+if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['calendar_code'])) {
     $calendar_code = trim($_POST['calendar_code']);
     
     // Verificare existența calendarului în baza de date folosind prepared statements
@@ -92,12 +100,12 @@ $stmt = $conn->prepare("
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $calendar_result = $stmt->get_result();
-include 'header.php';
+include __DIR__ . '/../interfata/header.php';
 ?>
 <a href="creare_calendar.php"><button id="createButton">+</button></a>
 <div id="tableContainer">
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['delete_calendar']) && isset($_POST['calendar_id'])) {
         $calendar_id = (int)$_POST['calendar_id'];
     
@@ -196,7 +204,7 @@ if ($calendar_result->num_rows > 0) {
 </div>
 <div class="evenimente">
 <?php
-include '../app/db.php';
+include __DIR__ . '/../app/db.php';
 
 // Obține data curentă și calculează ziua următoare
 $current_date = date('Y-m-d');
@@ -301,13 +309,25 @@ mysqli_close($conn);
     background-color: #e60000; /* Roșu închis */
 }
 
+
+#addCalendarButton {
+    width: 100%;
+    padding: 10px;
+    background-color: pink;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 #addCalendarButton:disabled {
     cursor: default;
     opacity: 0.7;
 }
     #tableContainer {
         position: absolute;
-        top: calc(38vh - 5.5vw);
+        top: 35vh;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
@@ -319,10 +339,10 @@ mysqli_close($conn);
 
     .evenimente{
         position: absolute;
-        top: 35vh;
+        top: 40vh;
         right: 3vw;
         display: grid;
-        width: 20vw;
+        width: 25vw;
         align-items: center;
         justify-content: center;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -330,8 +350,7 @@ mysqli_close($conn);
     }
 
     #tableContainer a {
-        margin-left: 1vw;
-        margin-right: 0.5vw;
+        /* width: 100%; */
         padding: 5px;
     }
 
@@ -340,11 +359,11 @@ mysqli_close($conn);
     }
 
     #codeFormContainer {
-        position: fixed;
-        top: calc(25vh - 9vw);
+        position: absolute;
+        top: 15vh;
         right: 3vw;
         background-color: #ffd2c6;
-        padding: 2vw;
+        padding: 20px;
         border-radius: 10px;
     }
 
@@ -352,7 +371,7 @@ mysqli_close($conn);
         background-color: #ffd2c6;
         color: white;
         width: 70vw;
-        height: 60px;
+        height: 80px;
         text-align: center;
         justify-content: center;
         margin-top: 2vh;
@@ -373,17 +392,17 @@ mysqli_close($conn);
 
     #createButton {
         font-size: 5vw;
-        top: calc(25vh - 9vw);
-        position: fixed;
+        top: 15vh;
+        position: absolute;
         left: 3vw;
         background-color: #ffd2c6;
         color: white;
-        height: calc(10vh + 3vw);
-        width: calc(3vw + 5vh);
+        width: 6vw;
     }
 
     #codeFormContainer input {
-        padding: 0.1vw;
+        width: calc(100% - 20px);
+        padding: 8px;
         margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 5px;
@@ -391,7 +410,7 @@ mysqli_close($conn);
 
     #codeFormContainer button {
         width: 100%;
-        padding: 0.5vw;
+        padding: 10px;
         background-color: pink;
         color: #fff;
         border: none;

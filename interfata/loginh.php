@@ -11,7 +11,7 @@ $error_message = "";
 
 // Verifică dacă formularul de login a fost trimis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include '../app/db.php';  // Include fișierul de conectare la baza de date
+    include __DIR__ . '/../app/db.php';  // Include fișierul de conectare la baza de date
 
     $username = trim($_POST['username']);  // Preia și curăță numele de utilizator introdus
     $password = trim($_POST['password']);  // Preia și curăță parola introdusă
@@ -31,6 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $row['id'];
             $_SESSION['username'] = $username;
+            if(getenv('IS_TESTING')) 
+                return;
             // Redirecționează către pagina de start (homepage.php)
             header("location: homepage.php");
             exit;
