@@ -258,9 +258,9 @@
                 <h3>Alătură-te evenimentului</h3>
                 <label for="availabilityStatus">Valabilitate:</label>
                 <select id="availabilityStatus" name="availabilityStatus" required>
-                    <option value="available">Liber</option>
-                    <option value="not_available">Indisponibil</option>
-                    <option value="not_sure">Nesigur</option>
+                    <option value="Valabil">Liber</option>
+                    <option value="Nevalabil">Indisponibil</option>
+                    <option value="Nesigur">Nesigur</option>
                 </select><br>
                 <button id="joinButton">Trimite</button>
             </div>
@@ -284,7 +284,7 @@
             $result = $stmt->get_result();
 
             if ($result->num_rows > 0) {
-                echo "<script>alert('Evenimentul nu poate fi adăugat. Alegeți o altă culoare.');</script>";
+                #echo "<script>alert('Evenimentul nu poate fi adăugat. Alegeți o altă culoare.');</script>";
             } else {
                 $stmt = $conn->prepare("INSERT INTO event (calendarId, date, time, location, title, description, type) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 $stmt->bind_param("issssss", $calendar_id, $eventDate, $eventTime, $eventLocation, $eventTitle, $eventDescription, $eventColor);
@@ -620,9 +620,9 @@
     let select = document.createElement("select");
     select.setAttribute("id", `availabilityStatus_${event.id}`);
     let options = [
-        { value: "available", text: "Liber" },
-        { value: "not_available", text: "Indisponibil" },
-        { value: "not_sure", text: "Nesigur" }
+        { value: "Valabil", text: "Liber" },
+        { value: "Nevalabil", text: "Indisponibil" },
+        { value: "Nesigur", text: "Nesigur" }
     ];
 
     options.forEach(optionData => {
