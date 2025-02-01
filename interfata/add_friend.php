@@ -3,24 +3,20 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Verifică autentificarea utilizatorului
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: loginh.php");
     exit();
 }
 
-include '../app/db.php'; // Conectare la baza de date
+include '../app/db.php'; 
 
-// Verifică cererea POST
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['friend_username'])) {
     $friend_username = trim($_POST['friend_username']);
     $username = $_SESSION['username'];
 
-    // Verifică dacă utilizatorul încearcă să-și trimită cerere de prietenie
     if ($friend_username === $username) {
         $error_message = "Nu poți trimite o cerere de prietenie către tine însuți.";
     } else {
-        // Obține ID-urile celor doi utilizatori folosind o interogare pregătită
         $stmt = $conn->prepare("SELECT id FROM user WHERE username = ?");
         $stmt->bind_param("s", $friend_username);
         $stmt->execute();
@@ -29,13 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['friend_username'])) {
         if ($result->num_rows > 0) {
             $friend_id = $result->fetch_assoc()['id'];
 
-            // Obține ID-ul utilizatorului curent
             $stmt->prepare("SELECT id FROM user WHERE username = ?");
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $user_id = $stmt->get_result()->fetch_assoc()['id'];
 
-            // Verifică dacă există deja o prietenie sau o cerere de prietenie
             $stmt = $conn->prepare("SELECT 1 FROM friendship WHERE (userId1 = ? AND userId2 = ?) OR (userId1 = ? AND userId2 = ?)");
             $stmt->bind_param("iiii", $user_id, $friend_id, $friend_id, $user_id);
             $stmt->execute();
@@ -49,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['friend_username'])) {
                 if ($stmt->get_result()->num_rows > 0) {
                     $error_message = "Cererea de prietenie a fost deja trimisă.";
                 } else {
-                    // Trimite cererea de prietenie
                     $stmt = $conn->prepare("INSERT INTO friend_requests (sender, receiver) VALUES (?, ?)");
                     $stmt->bind_param("ss", $username, $friend_username);
                     if ($stmt->execute()) {
@@ -64,10 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['friend_username'])) {
             $error_message = "Utilizatorul nu a fost găsit.";
         }
 
-        $stmt->close(); // Închide declarația pregătită
+        $stmt->close(); 
     }
 }
-$conn->close(); // Închide conexiunea la baza de date
+$conn->close(); 
 ?>
 
 <!DOCTYPE html>

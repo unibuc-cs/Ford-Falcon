@@ -16,7 +16,6 @@ if(getenv('IS_TESTING'))
     $_SESSION['id'] = 1;
 }
 
-// Verifică dacă utilizatorul este autentificat
 if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
     header("Location: loginh.php");
     exit();
@@ -26,11 +25,9 @@ $user_id = $_SESSION['id'];
 $user_name = $_SESSION['username'];
 $_SESSION['show_back_button'] = false;
 
-// Procesare formular pentru adăugarea unui calendar folosind un cod
 if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['calendar_code'])) {
     $calendar_code = trim($_POST['calendar_code']);
     
-    // Verificare existența calendarului în baza de date folosind prepared statements
     $stmt = $conn->prepare("SELECT id, adminId FROM calendar WHERE code = ?");
     $stmt->bind_param("s", $calendar_code);
     $stmt->execute();
@@ -41,7 +38,6 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST" &&
         $calendar_id = $calendar_row['id'];
         $admin_id = $calendar_row['adminId'];
         
-        // Verificare prietenie folosind prepared statements
         $stmt = $conn->prepare("
             SELECT * FROM friendship 
             WHERE (userId1 = ? AND userId2 = ?) 
@@ -52,18 +48,16 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST" &&
         $friend_result = $stmt->get_result();
 
         if ($friend_result->num_rows > 0) {
-            // Verificare dacă utilizatorul este deja în calendar
             $stmt = $conn->prepare("SELECT * FROM userincalendar WHERE userId = ? AND calendarId = ?");
             $stmt->bind_param("ii", $user_id, $calendar_id);
             $stmt->execute();
             $check_result = $stmt->get_result();
             
             if ($check_result->num_rows == 0) {
-                // Adăugare utilizator în calendar
                 $stmt = $conn->prepare("INSERT INTO userincalendar (userId, calendarId) VALUES (?, ?)");
                 $stmt->bind_param("ii", $user_id, $calendar_id);
                 if ($stmt->execute()) {
-                    $success_message = true; // Setează succesul
+                    $success_message = true; 
                     $error_message = "";
                 } else {
                     $error_message = "Eroare la adăugarea dvs. la calendar.";
@@ -80,7 +74,6 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST" &&
     $stmt->close();
 }
 
-// Modificăm interogarea pentru a include numele creatorului calendarului pentru calendarele adăugate prin cod
 $stmt = $conn->prepare("
     SELECT 
         u.username AS user_name, 
@@ -109,7 +102,6 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['delete_calendar']) && isset($_POST['calendar_id'])) {
         $calendar_id = (int)$_POST['calendar_id'];
     
-        // Șterge mai întâi înregistrările din userinevent legate de evenimentele calendarului
         $stmt = $conn->prepare("
             DELETE ue FROM userinevent ue
             JOIN event e ON ue.eventId = e.id
@@ -119,19 +111,16 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $stmt->close();
     
-        // Șterge evenimentele asociate calendarului
         $stmt = $conn->prepare("DELETE FROM event WHERE calendarId = ?");
         $stmt->bind_param("i", $calendar_id);
         $stmt->execute();
         $stmt->close();
     
-        // Șterge utilizatorii din calendar
         $stmt = $conn->prepare("DELETE FROM userincalendar WHERE calendarId = ?");
         $stmt->bind_param("i", $calendar_id);
         $stmt->execute();
         $stmt->close();
     
-        // Șterge calendarul dacă utilizatorul este creatorul
         $stmt = $conn->prepare("DELETE FROM calendar WHERE id = ? AND adminId = ?");
         $stmt->bind_param("ii", $calendar_id, $user_id);
         if ($stmt->execute()) {
@@ -147,7 +136,6 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST['leave_calendar']) && isset($_POST['calendar_id'])) {
         $calendar_id = (int)$_POST['calendar_id'];
-        // Șterge utilizatorul din calendar
         $stmt = $conn->prepare("DELETE FROM userincalendar WHERE calendarId = ? AND userId = ?");
         $stmt->bind_param("ii", $calendar_id, $user_id);
         if ($stmt->execute()) {
@@ -163,11 +151,8 @@ if (isset($_SERVER["REQUEST_METHOD"]) && $_SERVER["REQUEST_METHOD"] == "POST") {
 
 ?>
 <?php
-// Verifică dacă s-au găsit calendare
 if ($calendar_result->num_rows > 0) {
-    // Există calendare la care utilizatorul este implicat, le afișăm
     while ($row = $calendar_result->fetch_assoc()) {
-        // Afișează numele creatorului pentru calendarele adăugate prin cod
         $display_name = $row['user_name'] == $user_name ? $row['creator_name'] : $row['user_name'];
         echo "<a href='calendar.php?calendar_id=" . htmlspecialchars($row['calendar_id']) . "'><div class='calendar-button'>";
         echo "<h3>" . htmlspecialchars($display_name) . " - " . htmlspecialchars($row['calendar_name']) . "</h3>";
@@ -175,7 +160,6 @@ if ($calendar_result->num_rows > 0) {
 		
 		 $is_creator = $row['creator_id'] == $user_id;
 		
-		// Buton de ștergere sau ieșire
         if ($is_creator) {
             echo "<form method='post' action='' style='display:inline;'>
                     <input type='hidden' name='calendar_id' value='" . htmlspecialchars($row['calendar_id']) . "'>
@@ -206,10 +190,8 @@ if ($calendar_result->num_rows > 0) {
 <?php
 include __DIR__ . '/../app/db.php';
 
-// Obține data curentă și calculează ziua următoare
 $current_date = date('Y-m-d');
 $next_day = date('Y-m-d', strtotime($current_date . ' +1 day'));
-// Interogare SQL pentru a selecta evenimentele care au loc în ziua următoare
 $query = "SELECT e.* FROM event e join userinevent u ON e.id=u.eventId WHERE DATE(e.date) = '$next_day' and userId = '$user_id'";
 $result = mysqli_query($conn, $query);
 
@@ -234,15 +216,13 @@ mysqli_close($conn);
 <script>
 
 
- // Verifică dacă adăugarea a avut succes
     <?php if ($success_message): ?>
         const button = document.getElementById('addCalendarButton');
         button.textContent = "✔ Added";
-        button.style.backgroundColor = "#4caf50"; // Verde
+        button.style.backgroundColor = "#4caf50";
         button.style.cursor = "default";
         button.disabled = true;
 
-        // Revine la starea inițială după 2 secunde
         setTimeout(() => {
             button.textContent = "Add Calendar";
             button.style.backgroundColor = "pink";
@@ -253,9 +233,8 @@ mysqli_close($conn);
 
     window.addEventListener('pageshow', function (event) {
         if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {
-            // Utilizatorul a navigat înapoi
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", "../php_ex/logout.php", false);  // Sincron - poate afecta performanța
+            xhr.open("GET", "../php_ex/logout.php", false); 
             xhr.send();
         }
     });
@@ -263,13 +242,13 @@ mysqli_close($conn);
 <style>
 
 .popup {
-    display: none; /* Ascunde popup-ul în mod implicit */
+    display: none; 
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
-    background-color: #4caf50; /* Verde pentru succes */
+    background-color: #4caf50; 
     color: white;
     padding: 20px;
     border-radius: 8px;
@@ -295,7 +274,7 @@ mysqli_close($conn);
 
 
 .action-button {
-    background-color: #ff4d4d; /* Roșu */
+    background-color: #ff4d4d; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -306,7 +285,7 @@ mysqli_close($conn);
 }
 
 .action-button:hover {
-    background-color: #e60000; /* Roșu închis */
+    background-color: #e60000;
 }
 
 
@@ -331,7 +310,7 @@ mysqli_close($conn);
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        width: 70vw; /* Ajustare pentru a face loc formularului */
+        width: 70vw; 
         align-items: center;
         justify-content: center;
         margin: 0 auto;

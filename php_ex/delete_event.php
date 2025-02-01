@@ -6,13 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['eventId']) && !empty
     $eventId = filter_var($_POST['eventId'], FILTER_VALIDATE_INT);
     $userId = filter_var($_POST['userId'], FILTER_VALIDATE_INT);
 
-    // Verifică dacă datele sunt valide
     if (!$eventId || !$userId) {
         echo "Date invalide.";
         exit();
     }
 
-    // Verifică dacă utilizatorul este adminul calendarului
     $stmt = $conn->prepare("
         SELECT c.adminId 
         FROM calendar c 
@@ -24,9 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['eventId']) && !empty
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Utilizatorul este adminul evenimentului
 
-        // Șterge rândurile din userinevent dependente de eveniment
         $stmt = $conn->prepare("DELETE FROM userinevent WHERE eventId = ?");
         $stmt->bind_param("i", $eventId);
         if (!$stmt->execute()) {
@@ -34,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['eventId']) && !empty
             exit();
         }
 
-        // Șterge evenimentul
         $stmt = $conn->prepare("DELETE FROM event WHERE id = ?");
         $stmt->bind_param("i", $eventId);
         if ($stmt->execute()) {
@@ -46,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['eventId']) && !empty
         echo "Nu aveți autorizație pentru a șterge acest eveniment.";
     }
 
-    // Închide resursele
     $stmt->close();
     $conn->close();
 } else {

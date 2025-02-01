@@ -1,18 +1,16 @@
 <?php
-session_start(); // Începe sesiunea pentru a gestiona starea de autentificare a utilizatorilor
+session_start(); 
 
-// Verifică dacă utilizatorul nu este autentificat și îl redirecționează către pagina de login
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: loginh.php");
     exit();
 }
 
-include '../app/db.php'; // Include conexiunea la baza de date
+include '../app/db.php'; 
 
-$username = $_SESSION['username']; // Preia numele utilizatorului din sesiune
-$_SESSION['show_back_button'] = false; // Setează variabila de sesiune pentru afișarea butonului de navigare înapoi (nu este utilizată în acest cod)
+$username = $_SESSION['username']; 
+$_SESSION['show_back_button'] = false; 
 
-// Obține ID-ul utilizatorului bazat pe numele său de utilizator utilizând declarații pregătite
 $stmt = $conn->prepare("SELECT id FROM user WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
@@ -25,7 +23,6 @@ if ($result && $result->num_rows > 0) {
     die("Eroare la preluarea ID-ului de utilizator pentru: " . htmlspecialchars($username));
 }
 
-// Obține lista de prieteni utilizând declarații pregătite
 $stmt = $conn->prepare("
     SELECT u.username AS friend_username FROM friendship f
     JOIN user u ON (f.userId1 = u.id OR f.userId2 = u.id)
@@ -39,13 +36,10 @@ if (!$friends) {
     die("Eroare la preluarea prietenilor: " . htmlspecialchars($conn->error));
 }
 
-// Tratare formular pentru ștergerea unui prieten
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
     $friend_username = trim($_POST['friend_username']);
 
-    // Verifică și sanitizează inputul
     if (!empty($friend_username)) {
-        // Obține ID-ul prietenului din baza de date
         $stmt = $conn->prepare("SELECT id FROM user WHERE username = ?");
         $stmt->bind_param("s", $friend_username);
         $stmt->execute();
@@ -55,7 +49,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
             $friend_row = $friend_result->fetch_assoc();
             $friend_id = $friend_row['id'];
 
-            // Șterge relația de prietenie
             $stmt = $conn->prepare("
                 DELETE FROM friendship 
                 WHERE (userId1 = ? AND userId2 = ?) 
@@ -143,21 +136,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
         .friend-list {
             list-style-type: none;
             padding: 0;
-            max-width: 600px; /* Adjust the width as needed */
-            margin: 0 auto; /* Center the list horizontally */
+            max-width: 600px; 
+            margin: 0 auto; 
         }
 
         .friend-list li {
-            display: flex; /* Use Flexbox for alignment */
-            justify-content: space-between; /* Push the button to the right */
-            align-items: center; /* Vertically align content */
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
             margin: 20px 0;
             padding: 10px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            width: 100%; /* Ensure fixed width for the list items */
+            width: 100%;
             border-radius: 5px;
             border: 1px solid pink;
-            background-color: #fff; /* Set a background color */
+            background-color: #fff; 
         }
 
         .friend-list li:hover {
@@ -165,11 +158,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove_friend'])) {
         }
 
         .friend-list a {
-            flex-grow: 1; /* Allow the link to take up remaining space */
+            flex-grow: 1; 
             text-decoration: none;
             color: #333;
             font-size: 16px;
-            padding-right: 10px; /* Add some space between the link and the button */
+            padding-right: 10px; 
         }
 
         .friend-list a:hover {

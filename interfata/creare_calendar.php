@@ -3,23 +3,19 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Verifică autentificarea utilizatorului
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: loginh.php");
     exit();
 }
 
-// Setează variabila de sesiune pentru afișarea butonului de navigare înapoi (deși nu este folosită)
 $_SESSION['show_back_button'] = false;
 
-// Funcție pentru generarea unui cod aleator mai sigur folosind `bin2hex` și `random_bytes`
 function generateRandomCode($length = 6) {
     return substr(bin2hex(random_bytes($length)), 0, $length);
 }
 
 $randomCode = generateRandomCode(6);
 
-// Verifică cererea POST și execută logica de inserare
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['id'])) {
     include '../app/db.php';
 
@@ -27,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['id'])) {
     $adminId = $_SESSION['id'];
 
     if (!empty($name)) {
-        // Folosește prepared statements pentru securitate
         $stmt = $conn->prepare("INSERT INTO calendar (name, adminId, code) VALUES (?, ?, ?)");
         $stmt->bind_param("sis", $name, $adminId, $randomCode);
 
@@ -35,7 +30,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['id'])) {
             $calendarId = $stmt->insert_id;
             $stmt->close();
 
-            // Asociază utilizatorul cu calendarul nou creat
             $stmt = $conn->prepare("INSERT INTO userInCalendar (userId, calendarId) VALUES (?, ?)");
             $stmt->bind_param("ii", $adminId, $calendarId);
             if ($stmt->execute()) {

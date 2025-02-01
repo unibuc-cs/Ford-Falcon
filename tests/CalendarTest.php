@@ -25,7 +25,6 @@ class CalendarTest extends TestCase {
                 VALUES (1, 1, 1);";
         
         if ($this->conn->multi_query($sql)) {
-            // Clear any remaining results to avoid issues
             while ($this->conn->more_results() && $this->conn->next_result()) { }
         } else {
             $this->fail("SQL Error: " . $this->conn->error);
@@ -36,7 +35,6 @@ class CalendarTest extends TestCase {
      * @runInSeparateProcess
      */
     public function testCalendarInHomepage() {
-        // Disable redirection in the test
         ob_start();
         include __DIR__ . '/../interfata/homepage.php';
         $output = ob_get_clean();
@@ -46,7 +44,6 @@ class CalendarTest extends TestCase {
     }
 
     protected function tearDown(): void {
-        // Clean up the database and close the connection
         $this->conn->close();
     }
 }

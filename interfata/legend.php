@@ -52,7 +52,6 @@ $calendar_id = isset($_GET['calendar_id']) ? intval($_GET['calendar_id']) : 0;
         <br>
         <?php
         if ($calendar_id > 0) {
-            // Fetch all events ordered by date and time using prepared statements
             $stmt = $conn->prepare("SELECT title, description, location, type FROM event WHERE calendarId = ? ORDER BY date ASC, time ASC");
             $stmt->bind_param("i", $calendar_id);
             $stmt->execute();

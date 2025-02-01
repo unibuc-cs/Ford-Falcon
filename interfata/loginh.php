@@ -1,7 +1,6 @@
 <?php
-session_start();  // Începe sesiunea pentru utilizarea sesiunilor PHP
+session_start();  
 
-// Redirecționează utilizatorul către pagina de start (homepage.php) dacă acesta este deja autentificat
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     header("location: homepage.php");
     exit;
@@ -9,42 +8,38 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
 
 $error_message = "";
 
-// Verifică dacă formularul de login a fost trimis
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    include __DIR__ . '/../app/db.php';  // Include fișierul de conectare la baza de date
+    include __DIR__ . '/../app/db.php';  
 
-    $username = trim($_POST['username']);  // Preia și curăță numele de utilizator introdus
-    $password = trim($_POST['password']);  // Preia și curăță parola introdusă
+    $username = trim($_POST['username']);  
+    $password = trim($_POST['password']);  
 
-    // Preparează declarația SQL pentru a preveni injecția SQL
+    
     $stmt = $conn->prepare("SELECT id, username, password FROM user WHERE username = ?");
-    $stmt->bind_param("s", $username);  // Leagă parametrul pentru a evita SQL injection
-    $stmt->execute();  // Execută interogarea
-    $result = $stmt->get_result();  // Obține rezultatul interogării
-    $row = $result->fetch_assoc();  // Extrage rândul rezultat
+    $stmt->bind_param("s", $username);  
+    $stmt->execute();  
+    $result = $stmt->get_result();  
+    $row = $result->fetch_assoc();  
 
-    // Verifică dacă există un singur rând (utilizator) returnat
+    
     if ($result->num_rows == 1) {
-        // Verifică dacă parola introdusă se potrivește cu parola stocată (folosind password_verify)
         if (password_verify($password, $row['password'])) {
-            // Autentificare reușită, setează variabilele de sesiune
             $_SESSION['loggedin'] = true;
             $_SESSION['id'] = $row['id'];
             $_SESSION['username'] = $username;
             if(getenv('IS_TESTING')) 
                 return;
-            // Redirecționează către pagina de start (homepage.php)
             header("location: homepage.php");
             exit;
         } else {
              $error_message = "Parolă incorectă.";
         }
     } else {
-         $error_message = "Nu există niciun cont cu acest nume de utilizator.";  // Afișează o alertă dacă numele de utilizator nu există în baza de date
+         $error_message = "Nu există niciun cont cu acest nume de utilizator.";  
     }
 
-    $stmt->close();  // Închide declarația preparată pentru a elibera resursele
-    mysqli_close($conn);  // Închide conexiunea cu baza de date
+    $stmt->close(); 
+    mysqli_close($conn);  
 }
 ?>
 
@@ -55,10 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formular de Login</title>
-    <!-- Adaugă CSS Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Stiluri CSS pentru pagina de login */
         body {
             font-family: Arial, sans-serif;
             background-color: #ffece0;
@@ -151,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php include 'header.php'; ?> <!-- Include antetul (header-ul) paginii -->
+    <?php include 'header.php'; ?> 
     <div class="cont">
         <img src="../photos/logo.png" alt="Logo" style="display: inline-block; height: 50%; position: relative; right:100px; border-radius: 50px;">
         <div class="container">
@@ -171,7 +164,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
-            <a href="signup.php" class="signup-link">Înregistrare</a> <!-- Link către pagina de înregistrare -->
+            <a href="signup.php" class="signup-link">Înregistrare</a> 
         </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

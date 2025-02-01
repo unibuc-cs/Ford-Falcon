@@ -1,5 +1,4 @@
 <?php
-//design pattern: sigleton pattern
 use PHPUnit\Framework\TestCase;
 
 class PerformanceDatabaseTest extends TestCase
@@ -8,7 +7,6 @@ class PerformanceDatabaseTest extends TestCase
 
     protected function setUp(): void
     {
-        // Conectare la baza de date
         $this->conn = new mysqli("localhost", "root", "", "test");
 
         if ($this->conn->connect_error) {
@@ -18,7 +16,6 @@ class PerformanceDatabaseTest extends TestCase
 
     protected function tearDown(): void
     {
-        // Închidere conexiune la baza de date
         if ($this->conn) {
             $this->conn->close();
         }
@@ -26,20 +23,16 @@ class PerformanceDatabaseTest extends TestCase
 
     public function testDatabasePerformance()
     {
-        // Măsurarea timpului pentru o interogare simplă
         $startTime = microtime(true);
         $sql = "SELECT * FROM user";
         $result = $this->conn->query($sql);
         $endTime = microtime(true);
         $queryTime = $endTime - $startTime;
 
-        // Assert pentru timpul de execuție
-        $this->assertLessThan(0.1, $queryTime); // Timpul ar trebui să fie mai mic de 0.1 secunde
+        $this->assertLessThan(0.1, $queryTime);
 
-        // Assert pentru rezultatele interogării
-        $this->assertTrue($result->num_rows > 0); // Verificăm că avem cel puțin un rând în rezultate
+        $this->assertTrue($result->num_rows > 0); 
 
-        // În funcție de specificul aplicației tale, poți adăuga și alte aserțiuni relevante
     }
 }
 ?>

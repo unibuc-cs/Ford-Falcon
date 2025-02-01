@@ -9,7 +9,6 @@ class LoginTest extends TestCase {
 
         $this->conn = new mysqli("localhost", "root", "", "test");
         
-        // Inserare utilizator cu parola criptată
         $hashedPassword = password_hash('testpassword', PASSWORD_DEFAULT);
         $sql = "INSERT INTO user (id, email, password, username)
                 VALUES (1 ,
@@ -32,18 +31,15 @@ class LoginTest extends TestCase {
         $_POST['password'] = 'testpassword';
         $_SERVER['REQUEST_METHOD'] = 'POST';
 
-        // Disable redirection in the test
         ob_start();
         include __DIR__ . '/../interfata/loginh.php';
         ob_end_clean();
 
-        // Ensure the session has been set up properly
         $this->assertTrue(isset($_SESSION['loggedin']) && $_SESSION['loggedin']);
         $this->assertEquals('testuser', $_SESSION['username']);
     }
 
     protected function tearDown(): void {
-        // Clean up the database and close the connection
         $this->conn->close();
     }
 }

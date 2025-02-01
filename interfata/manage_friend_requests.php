@@ -10,7 +10,6 @@ include '../app/db.php';
 
 $username = $_SESSION['username'];
 
-// Obține ID-ul utilizatorului folosind o interogare pregătită
 $stmt = $conn->prepare("SELECT id FROM user WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
@@ -23,11 +22,9 @@ if ($result && $result->num_rows > 0) {
     die("Eroare: nu am putut găsi utilizatorul.");
 }
 
-// Gestionare acceptare/refuz cereri de prietenie
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $sender = filter_input(INPUT_POST, 'sender', FILTER_SANITIZE_STRING);
 
-    // Verifică existența cererii
     $stmt = $conn->prepare("SELECT id FROM user WHERE username = ?");
     $stmt->bind_param("s", $sender);
     $stmt->execute();
@@ -38,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $sender_id = $sender_row['id'];
 
         if (isset($_POST['accept_request'])) {
-            // Adaugă prietenia și șterge cererea
             $stmt = $conn->prepare("INSERT INTO friendship (userId1, userId2) VALUES (?, ?)");
             $stmt->bind_param("ii", $user_id, $sender_id);
             $stmt->execute();
@@ -49,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             echo "<script>alert('Cerere de prietenie acceptată!'); window.location.href = 'manage_friend_requests.php';</script>";
         } elseif (isset($_POST['reject_request'])) {
-            // Șterge cererea de prietenie
             $stmt = $conn->prepare("DELETE FROM friend_requests WHERE sender = ? AND receiver = ?");
             $stmt->bind_param("ss", $sender, $username);
             $stmt->execute();
@@ -59,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Obține lista de cereri de prietenie folosind prepared statements
 $stmt = $conn->prepare("SELECT sender FROM friend_requests WHERE receiver = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
@@ -83,7 +77,7 @@ $friend_requests = $stmt->get_result();
         }
 
         .container {
-            padding-top: 100px; /* Adjust this value if your header height is different */
+            padding-top: 100px; 
         }
 
         .list-group-item {

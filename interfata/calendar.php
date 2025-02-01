@@ -143,7 +143,6 @@
     if (isset($_GET['calendar_id'])) {
         $calendar_id = $_GET['calendar_id'];
 
-        // Use prepared statement to prevent SQL injection
         $stmt = $conn->prepare("SELECT name FROM calendar WHERE id = ?");
         $stmt->bind_param("i", $calendar_id);
         $stmt->execute();
@@ -235,7 +234,7 @@
                 function copyToClipboard() {
                     var copyText = document.getElementById("calendarCode");
                     copyText.select();
-                    copyText.setSelectionRange(0, 99999); // Pentru dispozitive mobile
+                    copyText.setSelectionRange(0, 99999); 
                     document.execCommand("copy");
                     alert("Codul a fost copiat: " + copyText.value);
                 }
@@ -323,7 +322,6 @@
     $conn->close();
 
     ?>
-    <!--Sectiunea comentarii-->
     <section class="comentari">
         <h2>Comentarii</h2>
         <div class="com">
@@ -501,7 +499,7 @@
                             eventsOnThisDate.forEach(event => {
                                 let eventIndicator = document.createElement("div");
                                 eventIndicator.className = "event-indicator";
-                                eventIndicator.style.backgroundColor = event.type; // Set the color of the event
+                                eventIndicator.style.backgroundColor = event.type; 
                                 cell.appendChild(eventIndicator);
                             });
                         }
@@ -582,17 +580,15 @@
                 let listItem = document.createElement("li");
                 listItem.innerHTML = `${event.time} - ${event.description}`;
 				
-				// Afișează butonul "Delete" doar dacă utilizatorul este admin
 					let deleteButton = document.createElement("button");
 					deleteButton.textContent = "Delete";
 					deleteButton.onclick = function () {
 						if (confirm("Ești sigur/ă că vrei să ștergi acest eveniment?")) {
-							deleteEvent(event.id); // Trimite solicitarea de ștergere
+							deleteEvent(event.id); 
 						}
 					};
 					listItem.appendChild(deleteButton);
                 
-                // Afișează utilizatorii și disponibilitatea acestora
                 let usersForEvent = usersphp.filter(user => user.id === event.id);
                 console.log(usersForEvent);
                 if (usersForEvent.length > 0) {
@@ -608,22 +604,18 @@
                     noUsers.innerHTML = "Nici un utilizator valabil.";
                     listItem.appendChild(noUsers);
                 }
-                // Adaugă un buton "Join" pentru a seta disponibilitatea
                 let joinButton = document.createElement("button");
                 joinButton.innerHTML = "Join";
                 joinButton.onclick = function () {
-    joinButton.style.display = "none"; // Ascunde butonul Join
+    joinButton.style.display = "none"; 
 
-    // Creează formularul de disponibilitate
     let availabilityForm = document.createElement("div");
 
-    // Creează și adaugă label-ul
     let label = document.createElement("label");
     label.setAttribute("for", `availabilityStatus_${event.id}`);
     label.textContent = "Valabilitate:";
     availabilityForm.appendChild(label);
 
-    // Creează și adaugă select-ul
     let select = document.createElement("select");
     select.setAttribute("id", `availabilityStatus_${event.id}`);
     let options = [
@@ -641,19 +633,17 @@
 
     availabilityForm.appendChild(select);
 
-    // Creează și adaugă butonul Submit
     let submitButton = document.createElement("button");
     submitButton.textContent = "Trimite";
     submitButton.onclick = function () {
-        let availabilityStatus = select.value; // Obține valoarea selectată
+        let availabilityStatus = select.value; 
         if (availabilityStatus) {
-            sendAvailability(event.id, availabilityStatus); // Trimite datele
+            sendAvailability(event.id, availabilityStatus); 
         }
     };
 
     availabilityForm.appendChild(submitButton);
 
-    // Adaugă formularul de disponibilitate în listă
     listItem.appendChild(availabilityForm);
 };
                 listItem.appendChild(joinButton);
@@ -690,7 +680,7 @@
                 },
                 success: function(response) {
                     console.log("Response from PHP:", response);
-                    alert(response); // Afișează răspunsul de la PHP
+                    alert(response); 
 					window.location.reload();
                 },
                 error: function(xhr, status, error) {
@@ -700,23 +690,23 @@
             });
         }
 		function deleteEvent(eventId) {
-    let userId = <?php echo $user_id; ?>; // ID-ul utilizatorului curent
+    let userId = <?php echo $user_id; ?>; 
 
 	if (event) {
-        event.preventDefault(); // Previne comportamentul implicit al formularului
+        event.preventDefault(); 
     }
 
     $.ajax({
         type: 'POST',
-        url: 'http://localhost/proiect_is/php_ex/delete_event.php', // Scriptul PHP care se ocupă de ștergerea evenimentelor
+        url: 'http://localhost/proiect_is/php_ex/delete_event.php', 
         data: {
             eventId: eventId,
             userId: userId
         },
         success: function (response) {
             console.log("Response from PHP:", response);
-            alert(response); // Mesajul de răspuns
-            window.location.reload(); // Reîncarcă pagina pentru a actualiza lista evenimentelor
+            alert(response); 
+            window.location.reload(); 
         },
         error: function (xhr, status, error) {
             console.error("Error:", error);

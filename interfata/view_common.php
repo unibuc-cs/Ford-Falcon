@@ -11,7 +11,6 @@ include '../app/db.php';
 $username = $_SESSION['username'];
 $friend_username = filter_input(INPUT_GET, 'friend', FILTER_SANITIZE_STRING);
 
-// Obține ID-urile utilizatorului și prietenului într-o singură interogare
 $stmt = $conn->prepare("
     SELECT 
         (SELECT id FROM user WHERE username = ?) AS user_id,
@@ -32,7 +31,6 @@ if ($result && $row = $result->fetch_assoc()) {
     die("Eroare: Nu am putut obține informațiile despre utilizatori.");
 }
 
-// Obține lista de calendare în comun
 $stmt = $conn->prepare("
     SELECT c.id, c.name 
     FROM calendar c
@@ -66,7 +64,7 @@ if (!$common_calendars) {
         }
 
         .container {
-            padding-top: 100px; /* Adjust this value if your header height is different */
+            padding-top: 100px; 
         }
 
         .calendar-button {

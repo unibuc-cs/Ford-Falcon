@@ -7,7 +7,6 @@ if (!isset($_GET['calendar_id']) || !is_numeric($_GET['calendar_id'])) {
 
 $calendar_id = $_GET['calendar_id'];
 
-// Interogare pregătită pentru a preveni injecțiile SQL
 $stmt = $conn->prepare("SELECT c.*, u.username FROM comments c JOIN user u ON c.user_id = u.id WHERE calendar_id = ?");
 $stmt->bind_param("i", $calendar_id);
 $stmt->execute();
@@ -26,7 +25,6 @@ if ($result->num_rows > 0) {
     echo "<p>Nu există comentarii.</p>";
 }
 
-// Închide conexiunea și resursele utilizate
 $stmt->close();
 $conn->close();
 ?>

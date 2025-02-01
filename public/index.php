@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bine ați venit la GroupCalendar</title>
-    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -74,9 +73,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS (optional) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Redirect to login page after animation -->
     <script>
         setTimeout(() => window.location.href = "../interfata/loginh.php", 5000);
     </script>

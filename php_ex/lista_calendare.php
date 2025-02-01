@@ -3,16 +3,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-include '../app/db.php'; // Include fișierul pentru conexiunea la baza de date
+include '../app/db.php';
 
-// Verifică dacă utilizatorul este autentificat
 if (!isset($_SESSION['id'])) {
     die("Eroare: Nu ești autentificat.");
 }
 
 $user_id = $_SESSION['id'];
 
-// Pregătește interogarea folosind prepared statements pentru securitate
 $stmt = $conn->prepare("
     SELECT u.username AS user_name, c.name AS calendar_name 
     FROM userincalendar uc 
@@ -24,7 +22,6 @@ $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
-// Verifică dacă s-au găsit calendare
 if ($result && $result->num_rows > 0) {
     echo "<h2>Calendarele la care ești implicat:</h2>";
     echo "<ul>";
@@ -36,7 +33,6 @@ if ($result && $result->num_rows > 0) {
     echo "<p>Nu ești implicat în niciun calendar.</p>";
 }
 
-// Închide resursele utilizate
 $stmt->close();
 $conn->close();
 ?>
