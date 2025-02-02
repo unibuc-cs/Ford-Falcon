@@ -12,7 +12,7 @@ try:
     username_input = driver.find_element(By.ID, "username")
     password_input = driver.find_element(By.ID, "password")
 
-    username_input.send_keys("mari")
+    username_input.send_keys("test_user")
     password_input.send_keys("1234")
     password_input.send_keys(Keys.RETURN)
 
@@ -26,3 +26,4 @@ except (webdriver.NoSuchElementException, webdriver.WebDriverException) as e:
 
 finally:
     driver.quit()
+    exit(0)
