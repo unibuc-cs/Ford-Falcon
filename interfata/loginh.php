@@ -162,9 +162,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				<?php echo htmlspecialchars($error_message); ?>
 				</p>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" id="login_button" class="btn btn-primary">Login</button>
             </form>
-            <a href="signup.php" class="signup-link">Înregistrare</a> 
+            <a href="signup.php" id="signup_link" class="signup-link">Înregistrare</a> 
         </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

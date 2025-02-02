@@ -79,14 +79,14 @@
     ?>
     <div class="header">
         <?php if (isset($_SESSION['show_back_button']) && $_SESSION['show_back_button'] === true): ?>
-            <button class="back-button" onclick="window.location.href='homepage.php'">Înapoi</button>
+            <button class="back-button" name="back-button" onclick="window.location.href='homepage.php'">Înapoi</button>
         <?php endif; ?>
         <h1 style="display: inline-block; position: relative; left: 0px; top:10px;">GroupCalendar</h1>
         <div class="login-register" style="display: inline-block;">
             <?php
             if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
                 echo "Bine ai venit, " . htmlspecialchars($user_name) . "!";
-                echo '<a href="homepage.php" class="btn btn-outline-light" style="margin-left: 10px;">Acasă</a>';
+                echo '<a href="homepage.php" class="btn btn-outline-light" id="home_button" style="margin-left: 10px;">Acasă</a>';
                 echo '<a href="friends.php" class="btn btn-outline-light" style="margin-left: 10px;">Prieteni</a>';
                 echo '<a href="../php_ex/logout.php" class="btn btn-outline-light" style="margin-left: 10px;">Logout</a>';
             }

@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <div>
-                <input type="submit" value="Înregistrare">  
+                <input type="submit" name = "signup_button" value="Înregistrare">  
             </div>
         </form>
     </div>

@@ -3,7 +3,7 @@
         'name' => 'numele/proiectului-tau',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '9994c3f3990b03a31186d821c7ad962698cbe87d',
+        'reference' => 'ae5e20ab99912ecd5039f2429dbe62d219478d45',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -49,7 +49,7 @@
         'numele/proiectului-tau' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '9994c3f3990b03a31186d821c7ad962698cbe87d',
+            'reference' => 'ae5e20ab99912ecd5039f2429dbe62d219478d45',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -72,6 +72,15 @@
             'install_path' => __DIR__ . '/../phar-io/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'php-webdriver/webdriver' => array(
+            'pretty_version' => '1.1.3',
+            'version' => '1.1.3.0',
+            'reference' => 'b7186fb1bcfda956d237f59face250d06ef47253',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-webdriver/webdriver',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'phpdocumentor/reflection-common' => array(
             'pretty_version' => '2.2.0',

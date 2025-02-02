@@ -26,6 +26,10 @@ class ComposerStaticInit193098847eda0444d8c9fd7146b51b9a
             'PhpParser\\' => 10,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
+        'F' => 
+        array (
+            'Facebook\\WebDriver\\' => 19,
+        ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
@@ -56,6 +60,10 @@ class ComposerStaticInit193098847eda0444d8c9fd7146b51b9a
         'PHPStan\\PhpDocParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
+        ),
+        'Facebook\\WebDriver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-webdriver/webdriver/lib',
         ),
         'Doctrine\\Instantiator\\' => 
         array (

@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['id'])) {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .form-container input {
-            width: calc(100% - 20px);
+            width: 100%;
             padding: 8px;
             margin-bottom: 15px;
             border: 1px solid #ccc;
@@ -115,8 +115,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['id'])) {
         <form method="post">
             <label for="name">Nume Calendar:</label>
             <input type="text" id="name" name="name" required>
-            <button type="submit" style="background-color:pink">Crează Calendar</button>
+            <button type="submit" name="submit_calendar" style="background-color:pink">Crează Calendar</button>
         </form>
     </div>
 </body>
 </html>
+
+<td data-date="3" data-month="2" data-year="2025" data-month_name="Februarie" class="date-picker"><span>3</span></td>
