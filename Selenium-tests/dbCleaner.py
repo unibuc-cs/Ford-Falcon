@@ -22,26 +22,35 @@ class dbCleaner:
         cursor = db_connection.cursor()
         query = f"SELECT id FROM calendar WHERE name = '{self.TEST_EVENT}';"
         cursor.execute(query)
-        result = cursor.fetchall()
+        results = cursor.fetchall()
 
-        if result:
-            calendar_id = result[0]
+        if results:
+            calendar_id = results[0][0]
 
-            query = f"DELETE FROM event WHERE calendarId IN (SELECT id FROM calendar WHERE id = {calendar_id});"
+            # Delete events for the specific calendar
+            query = f"DELETE FROM event WHERE calendarId = {calendar_id}"
             cursor.execute(query)
-            cursor.fetchall()
+            db_connection.commit()
 
-            query = f"DELETE FROM userincalendar WHERE calendarId IN (SELECT id FROM calendar WHERE id = {calendar_id});"
+            # Delete comments for the specific calendar
+            query = f"DELETE FROM comments WHERE calendar_id = {calendar_id}"
             cursor.execute(query)
-            cursor.fetchall()
+            db_connection.commit()
 
-            query = f"DELETE FROM comments WHERE calendar_id IN (SELECT id FROM calendar WHERE id = {calendar_id});"
+            query = f"DELETE FROM userincalendar WHERE calendarId = {calendar_id}"
             cursor.execute(query)
-            cursor.fetchall()
+            db_connection.commit()
 
-            query = f"DELETE FROM calendar WHERE id = {calendar_id};"
+            # Delete the calendar
+            query = f"DELETE FROM calendar WHERE id = {calendar_id}"
             cursor.execute(query)
-            cursor.fetchall()
+            db_connection.commit()
 
         cursor.close()
         db_connection.close()
+
+def main():
+    dbc = dbCleaner('test_user', '1234', 'Test_Event_Selenium_1')
+    dbc.clean()
+
+main()

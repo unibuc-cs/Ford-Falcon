@@ -130,7 +130,7 @@ try:
     print("Test Passed: All tests completed successfully.")
 except Exception as e:
     print(f"Test Failed: {e}")
-    #DBCLEANER.clean()
+    DBCLEANER.clean()
 
 finally:
     driver.quit()
