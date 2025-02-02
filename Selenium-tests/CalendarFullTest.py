@@ -8,7 +8,6 @@ from RandomSignupGen import *
 from selenium import webdriver #type: ignore
 from selenium.webdriver.common.by import By #type: ignore
 from selenium.common.exceptions import UnexpectedAlertPresentException, \
-                                        ElementNotInteractableException, \
                                         NoAlertPresentException
 
 USER = 'test_user'
@@ -16,7 +15,7 @@ PASSWORD = '1234'
 TEST_EVENT = 'Test_Event_Selenium_1'
 TODAY = date.today()
 DAY = TODAY.day
-MONTH = TODAY.month - 1  # Adjusting MONTH to match data-MONTH attribute (0-indexed)
+MONTH = TODAY.month - 1
 YEAR = TODAY.year
 DBCLEANER = dbCleaner(USER, PASSWORD, TEST_EVENT)
 
